@@ -31,7 +31,7 @@ public class Inventory : IInventory
 	{
 		if (item == null) return 0;
 		if (amount <= 0) return 0;
-		
+
 
 		int remaining = amount;
 
@@ -48,12 +48,6 @@ public class Inventory : IInventory
 			}
 		}
 
-		if (IsFull && remaining > 0)
-		{
-			Debug.Log("Can't add item: inventory is full");
-			return amount - remaining;
-		}
-
 		for (int i = 0; i < slots.Length && remaining > 0; i++)
 		{
 			var s = slots[i];
@@ -65,6 +59,12 @@ public class Inventory : IInventory
 		}
 
 		int addedTotal = amount - remaining;
+
+		if (IsFull && remaining == amount)
+			Debug.Log("Can't add item: inventory is full");
+		else if (IsFull && remaining > 0)
+			Debug.Log($"Added {addedTotal} item of {amount}: inventory is full");
+
 		if (addedTotal > 0) InventoryChanged?.Invoke();
 		return addedTotal;
 	}
