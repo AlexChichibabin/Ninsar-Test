@@ -63,7 +63,7 @@ public class Inventory : IInventory
 		if (IsFull && remaining == amount)
 			Debug.Log("Can't add item: inventory is full");
 		else if (IsFull && remaining > 0)
-			Debug.Log($"Added {addedTotal} item of {amount}: inventory is full");
+			Debug.Log($"Added {addedTotal} item out of {amount}: inventory is full");
 
 		if (addedTotal > 0) InventoryChanged?.Invoke();
 		return addedTotal;
@@ -92,7 +92,7 @@ public class Inventory : IInventory
 
 		int removedTotal = amount - remainAmount;
 		if (removedTotal > 0) InventoryChanged?.Invoke();
-		else Debug.Log("Can't remove item: inventory doesn't contain the item");
+		else Debug.Log("Can't remove item: inventory doesn't contain item");
 		return removedTotal;
 	}
 	public bool TryRemoveItem(IInventorySlot slot)
